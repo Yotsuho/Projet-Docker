@@ -1,8 +1,19 @@
-global:
-  scrape_interval: 15s # Frequency data is scraped from targets. Default is every 1 minute.
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
 
 scrape_configs:
-  - job_name: 'proxmox_hosts'
-    static_configs:
-      - targets: ['0.0.0.0:9100'] # IP de votre proxmox principal
-      # - targets: ['0.0.0.0:9100'] # IP de votre second proxmox au besoin
+- job_name: system
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: varlogs
+      host: proxmox-host # Donne un nom à ton serveur
+      __path__: /var/log/*log # Il va lire tous les fichiers qui finissent par .log
