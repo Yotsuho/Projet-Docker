@@ -1,0 +1,27 @@
+target: all
+
+multitenancy_enabled: false
+
+common:
+  storage:
+    backend: filesystem
+    filesystem:
+      dir: /data/mimir
+
+blocks_storage:
+  backend: filesystem
+  bucket_store:
+    sync_dir: /data/mimir/tsdb-sync
+  filesystem:
+    dir: /data/mimir/data/tsdb
+  tsdb:
+    dir: /data/mimir/tsdb-ingester
+
+compactor:
+  data_dir: /data/mimir/compactor
+
+ingester:
+  ring:
+    kvstore:
+      store: inmemory
+    replication_factor: 1
