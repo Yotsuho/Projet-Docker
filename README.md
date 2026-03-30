@@ -32,8 +32,8 @@ Un utilisateur avec les droits sudo.
 
 2. Clonage et Préparation
 
-git clone <url-de-ton-repo>
-cd lgtm-stack
+git clone [<url-de-ton-repo>](https://github.com/Yotsuho/Projet-Docker.git)
+cd Projet-Docker
 
 3. Configuration des fichiers
 Assurez-vous que les fichiers suivants sont présents à la racine :
