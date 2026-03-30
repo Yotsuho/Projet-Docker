@@ -48,10 +48,24 @@ services:
     volumes:
       - grafana_data:/var/lib/grafana
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=yourpassword
+      - GF_SECURITY_ADMIN_PASSWORD=password
+    restart: unless-stopped
+
+  tempo:
+    image: grafana/tempo:2.4.1
+    container_name: tempo
+    command: [ "-config.file=/etc/tempo.yaml" ]
+    volumes:
+      - ./tempo.yaml:/etc/tempo.yaml
+      - tempo_data:/var/tempo
+    ports:
+      - "3200:3200"   # Port API (pour que Grafana vienne lire les traces)
+      - "4317:4317"   # Port OTLP gRPC (pour que tes apps envoient des traces)
+      - "4318:4318"   # Port OTLP HTTP
     restart: unless-stopped
 
 volumes:
   prometheus_data:
   grafana_data:
   mimir_data:
+  tempo_data:
